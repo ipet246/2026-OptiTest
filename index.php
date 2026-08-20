@@ -112,7 +112,7 @@
         <div class="grid-botones">
             <a href="simuladores.php" class="btn-seccion">
                 <h3>🎮 Simuladores</h3>
-                <p>Probar los tests de Snellen, Duocromo y Círculo Horario en vivo.</p>
+                <p>Probar los tests de Snellen, Amsler, Ishihara y Círculo Horario en vivo.</p>
             </a>
 
             <a href="teoria.php" class="btn-seccion">
