@@ -124,10 +124,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['resp_ishihara_individ
 $ishiharaActual = ($posIshihara < count($placasIshihara)) ? $placasIshihara[$posIshihara] : null;
 
 // -------------------------------------------------------------
-// 3. OTROS TESTS (Reloj y Duocromo)
+// 3. OTROS TESTS (Reloj y Amsler)
 // -------------------------------------------------------------
-$opcionDuocromo = isset($_GET['duocromo']) ? $_GET['duocromo'] : '';
 $opcionReloj = isset($_GET['reloj']) ? $_GET['reloj'] : '';
+$opcionAmsler = isset($_GET['amsler']) ? $_GET['amsler'] : '';
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -184,16 +184,20 @@ $opcionReloj = isset($_GET['reloj']) ? $_GET['reloj'] : '';
         .btn-accion { background: var(--azul); color: white; border: none; padding: 10px 22px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 0.95rem; text-decoration: none; display: inline-block; }
         .btn-accion:hover { background: #004085; }
 
-        .duocromo { display: flex; width: 100%; height: 100%; font-weight: 700; font-size: 2rem; }
-        .mitad { flex: 1; display: flex; justify-content: center; align-items: center; }
-        .rojo { background: #ff4d4d; color: white; } .verde { background: #2ecc71; color: white; }
-
         .reloj { width: 160px; height: 160px; border: 4px solid #333; border-radius: 50%; position: relative; margin: 0 auto; }
         .num { position: absolute; font-weight: 700; font-size: 0.9rem; }
         .n12 { top: 5px; left: 45%; } .n6 { bottom: 5px; left: 47%; } .n3 { right: 8px; top: 43%; } .n9 { left: 8px; top: 43%; }
         .linea { position: absolute; background: #333; }
         .linea-v { width: 2px; height: 100%; left: 50%; top: 0; }
         .linea-h { width: 100%; height: 2px; left: 0; top: 50%; }
+
+        /* AMSLER STYLES */
+        .rejilla-amsler {
+            width: 240px; height: 240px; border: 2px solid black; margin: 0 auto;
+            background-image: linear-gradient(black 1px, transparent 1px), linear-gradient(90deg, black 1px, transparent 1px);
+            background-size: 20px 20px; position: relative;
+        }
+        .punto-central-amsler { width: 8px; height: 8px; background: red; border-radius: 50%; position: absolute; top: 116px; left: 116px; }
 
         .img-ishihara { max-height: 180px; border-radius: 50%; border: 3px solid #ccc; }
         .btn-items { display: flex; gap: 10px; justify-content: center; margin: 15px 0; flex-wrap: wrap; }
@@ -251,8 +255,8 @@ $opcionReloj = isset($_GET['reloj']) ? $_GET['reloj'] : '';
         <div class="selector-tests">
             <a href="simuladores.php?test=snellen" class="tab-btn <?php echo ($testActivo == 'snellen') ? 'activo' : ''; ?>">👓 Miopía (Snellen)</a>
             <a href="simuladores.php?test=reloj" class="tab-btn <?php echo ($testActivo == 'reloj') ? 'activo' : ''; ?>">🎯 Astigmatismo (Reloj)</a>
-            <a href="simuladores.php?test=duocromo" class="tab-btn <?php echo ($testActivo == 'duocromo') ? 'activo' : ''; ?>">🔴🟢 Duocromo</a>
             <a href="simuladores.php?test=ishihara" class="tab-btn <?php echo ($testActivo == 'ishihara') ? 'activo' : ''; ?>">🎨 Daltonismo (Ishihara)</a>
+            <a href="simuladores.php?test=amsler" class="tab-btn <?php echo ($testActivo == 'amsler') ? 'activo' : ''; ?>">👁️ Mácula (Amsler)</a>
         </div>
 
         <!-- TEST 1: SNELLEN -->
@@ -348,47 +352,7 @@ $opcionReloj = isset($_GET['reloj']) ? $_GET['reloj'] : '';
                 </div>
             </div>
 
-        <!-- TEST 3: DUOCROMO -->
-        <?php elseif ($testActivo == 'duocromo'): ?>
-            <div class="cartel-distancia">
-                <span>📏</span> <span>Distancia sugerida: Ubícate a 1 metro de la pantalla.</span>
-            </div>
-
-            <div class="card-test">
-                <h3>Test Bicromático (Duocromo)</h3>
-                <p>Utiliza longitudes de onda rojas y verdes para analizar el enfoque.</p>
-
-                <div class="caja-visual">
-                    <div class="duocromo">
-                        <div class="mitad rojo">M U O H</div>
-                        <div class="mitad verde">H U M O</div>
-                    </div>
-                </div>
-
-                <p><strong>¿Qué letras resaltan con mayor contraste o nitidez?</strong></p>
-                <div class="btn-items">
-                    <a href="simuladores.php?test=duocromo&duocromo=rojo" class="btn-sub" style="background:#ff4d4d; color:white;">Fondo Rojo</a>
-                    <a href="simuladores.php?test=duocromo&duocromo=verde" class="btn-sub" style="background:#2ecc71; color:white;">Fondo Verde</a>
-                    <a href="simuladores.php?test=duocromo&duocromo=iguales" class="btn-sub">Ambos Iguales</a>
-                </div>
-
-                <div class="info" style="border-left-color: <?php echo ($opcionDuocromo == 'iguales' || $opcionDuocromo == '') ? '#2ecc71' : '#d9534f'; ?>;">
-                    <h4 style="margin-bottom: 8px;">📋 Sugerencia de Orientación (Sin Diagnóstico Médico):</h4>
-                    <?php if ($opcionDuocromo == 'rojo'): ?>
-                        <p style="color: #c0392b; font-weight: 600;">Las letras sobre el fondo rojo se perciben más nítidas.</p>
-                        <p><strong>Recomendación:</strong> Esto suele indicar una ligera tendencia a la <strong>miopía</strong> o que tu corrección actual puede requerir un leve ajuste. Se sugiere consulta con un profesional óptico.</p>
-                    <?php elseif ($opcionDuocromo == 'verde'): ?>
-                        <p style="color: #c0392b; font-weight: 600;">Las letras sobre el fondo verde destacan con mayor fuerza.</p>
-                        <p><strong>Recomendación:</strong> Esta percepción suele vinculación con una tendencia hacia la <strong>hipermetropía</strong> o hipercorrección. Se aconseja agendar una consulta clínica.</p>
-                    <?php elseif ($opcionDuocromo == 'iguales'): ?>
-                        <p>Percibes ambos lados con igual nitidez y contraste. Esto sugiere un enfoque neutro y equilibrado para la distancia evaluada.</p>
-                    <?php else: ?>
-                        <p>Selecciona una opción arriba para desplegar la sugerencia del simulador.</p>
-                    <?php endif; ?>
-                </div>
-            </div>
-
-        <!-- TEST 4: ISHIHARA -->
+        <!-- TEST 3: ISHIHARA -->
         <?php elseif ($testActivo == 'ishihara'): ?>
             <div class="cartel-distancia">
                 <span>📏</span> <span>Distancia sugerida: Colócate a unos <strong>75 cm</strong> de la pantalla.</span>
@@ -510,6 +474,42 @@ $opcionReloj = isset($_GET['reloj']) ? $_GET['reloj'] : '';
 
                     <a href="simuladores.php?test=ishihara&reiniciar_ishihara=1" class="btn-accion" style="margin-top: 20px;">Reiniciar Test de Ishihara</a>
                 <?php endif; ?>
+            </div>
+
+        <!-- TEST 4: AMSLER -->
+        <?php elseif ($testActivo == 'amsler'): ?>
+            <div class="cartel-distancia">
+                <span>📏</span> <span>Distancia sugerida: Colócate a unos <strong>30 cm</strong> de la pantalla y cúbrete un ojo.</span>
+            </div>
+
+            <div class="card-test">
+                <h3>Test de Amsler (Evaluación de la Mácula)</h3>
+                <p>Mira fijamente el punto rojo central de la cuadrícula sin desviar la mirada.</p>
+
+                <div class="caja-visual" style="height: 280px;">
+                    <div class="rejilla-amsler">
+                        <div class="punto-central-amsler"></div>
+                    </div>
+                </div>
+
+                <p><strong>¿Las líneas se ven completamente rectas, continuas y sin zonas borrosas u onduladas?</strong></p>
+                
+                <div class="btn-items">
+                    <a href="simuladores.php?test=amsler&amsler=bien" class="btn-sub" style="background:#2ecc71; color:white;">Sí, todo recto y normal</a>
+                    <a href="simuladores.php?test=amsler&amsler=mal" class="btn-sub" style="background:#e74c3c; color:white;">No, veo líneas onduladas, borrosas o huecos</a>
+                </div>
+
+                <div class="info" style="border-left-color: <?php echo ($opcionAmsler == 'bien') ? '#2ecc71' : (($opcionAmsler == 'mal') ? '#d9534f' : 'var(--azul-claro)'); ?>;">
+                    <h4 style="margin-bottom: 8px;">📋 Sugerencia de Orientación (Sin Diagnóstico Médico):</h4>
+                    <?php if ($opcionAmsler == 'mal'): ?>
+                        <p style="color: #c0392b; font-weight: 600;">Has reportado distorsiones o irregularidades en la rejilla central.</p>
+                        <p><strong>Recomendación:</strong> Este tipo de alteraciones visuales puede estar relacionado con afecciones en la mácula (como degeneración macular). Te sugerimos encarecidamente programar una consulta presencial con un oftalmólogo a la brevedad.</p>
+                    <?php elseif ($opcionAmsler == 'bien'): ?>
+                        <p>No se perciben distorsiones aparentes en la rejilla según tu respuesta en esta prueba preliminar.</p>
+                    <?php else: ?>
+                        <p>Selecciona una opción arriba para desplegar la sugerencia del simulador.</p>
+                    <?php endif; ?>
+                </div>
             </div>
         <?php endif; ?>
 

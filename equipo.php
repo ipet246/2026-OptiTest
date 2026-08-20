@@ -49,37 +49,37 @@
                         <td>1</td>
                         <td>Lisandro Tabares</td>
                         <td><span class="badge prog">Programación</span></td>
-                        <td>Desarrollo Backend PHP, sistema modular e interactividad.</td>
+                        <td>Desarrollo Backend PHP, sistema modular e interactividad[cite: 5].</td>
                     </tr>
                     <tr>
                         <td>2</td>
                         <td>Elias Uriel Cortez</td>
                         <td><span class="badge prog">Programación</span></td>
-                        <td>Maquetación CSS, interfaz adaptable a pantallas y TV.</td>
+                        <td>Maquetación CSS, interfaz adaptable a pantallas y TV[cite: 5].</td>
                     </tr>
                     <tr>
                         <td>3</td>
                         <td>Perez Santiago Nicolas</td>
                         <td><span class="badge opt">Óptica e Instrumental</span></td>
-                        <td>Elaboración del archivo para la presentación en Canva y explicación del primer test (Snellen).</td>
+                        <td>Elaboración del archivo para la presentación en Canva y explicación del primer test (Snellen)[cite: 5].</td>
                     </tr>
                     <tr>
                         <td>4</td>
                         <td>Pereyra Santino Ivo</td>
                         <td><span class="badge opt">Óptica e Instrumental</span></td>
-                        <td>Investigación y aportes de información para los tests y explicación del test de Ishihara.</td>
+                        <td>Investigación y aportes de información para los tests y explicación del test de Ishihara[cite: 5].</td>
                     </tr>
                     <tr>
                         <td>5</td>
                         <td>Paz Estefano Alejo</td>
                         <td><span class="badge opt">Óptica e Instrumental</span></td>
-                        <td>Explicación del test del reloj de astigmatismo.</td>
+                        <td>Explicación del test del reloj de astigmatismo[cite: 5].</td>
                     </tr>
                     <tr>
                         <td>6</td>
                         <td>Lamas Andres Juan</td>
                         <td><span class="badge opt">Óptica e Instrumental</span></td>
-                        <td>Explicación del test bicromático (Duocromo).</td>
+                        <td>Explicación del test de Amsler.</td>
                     </tr>
                 </tbody>
             </table>

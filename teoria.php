@@ -35,32 +35,42 @@
         <div class="grid">
             <div class="card">
                 <h3>Miopía</h3>
-                <p>Es cuando el ojo es más largo de lo normal o la córnea tiene mucha potencia. La imagen se enfoca antes de la retina, haciendo que veas re borroso de lejos pero bien de cerca. Se corrige con lentes divergentes (negativas).</p>
+                <p>Es cuando el ojo es más largo de lo normal o la córnea tiene mucha potencia. La imagen se enfoca antes de la retina, haciendo que veas re borroso de lejos pero bien de cerca. Se corrige con lentes divergentes (negativas)[cite: 4].</p>
             </div>
 
             <div class="card">
                 <h3>Hipermetropía</h3>
-                <p>El ojo es más corto de lo habitual y la imagen se forma por detrás de la retina. Los jóvenes suelen disimularlo haciendo esfuerzo con el cristalino (acomodación), lo que causa dolor de cabeza y fatiga visual. Se corrige con lentes convergentes (positivas).</p>
+                <p>El ojo es más corto de lo habitual y la imagen se forma por detrás de la retina. Los jóvenes suelen disimularlo haciendo esfuerzo con el cristalino (acomodación), lo que causa dolor de cabeza y fatiga visual. Se corrige con lentes convergentes (positivas)[cite: 4].</p>
             </div>
 
             <div class="card">
                 <h3>Astigmatismo</h3>
-                <p>Ocurre cuando la córnea no es esférica pareja, sino ovalada. Genera distorsión o bordes dobles en las cosas tanto de cerca como de lejos. Se corrige con lentes cilíndricas.</p>
+                <p>Ocurre cuando la córnea no es esférica pareja, sino ovalada. Genera distorsión o bordes dobles en las cosas tanto de cerca como de lejos. Se corrige con lentes cilíndricas[cite: 4].</p>
+            </div>
+
+            <div class="card borde">
+                <h3>Daltonismo (Test de Ishihara)</h3>
+                <p>Es una alteración en la capacidad para distinguir ciertos colores, habitualmente los tonos rojos y verdes. Se evalúa mediante placas pseudoisocromáticas compuestas por puntos de colores donde se ocultan números o caminos específicos.</p>
+            </div>
+
+            <div class="card borde">
+                <h3>Salud Macular (Test de Amsler)</h3>
+                <p>Prueba orientada a examinar la mácula (la parte central de la retina encargada de la visión detallada). Utiliza una cuadrícula con un punto central para detectar anomalías como líneas onduladas, borrosas o áreas con huecos.</p>
             </div>
 
             <div class="card borde">
                 <h3>Tests Pediátricos</h3>
-                <p>Con niños pequeños que no saben las letras se usan figuras como LEA Symbols (casitas, manzanas, círculos) o la C de Landolt para medir la visión sin depender de la lectura.</p>
+                <p>Con niños pequeños que no saben las letras se usan figuras como LEA Symbols (casitas, manzanas, círculos) o la C de Landolt para medir la visión sin depender de la lectura[cite: 4].</p>
             </div>
 
             <div class="card borde">
                 <h3>Sensibilidad al Contraste</h3>
-                <p>Mide qué tan bien distingues matices y sombras suaves, no solo letras negras en fondo blanco. Es clave para manejar de noche o detectar cataratas a tiempo.</p>
+                <p>Mide qué tan bien distingues matices y sombras suaves, no solo letras negras en fondo blanco. Es clave para manejar de noche o detectar cataratas a tiempo[cite: 4].</p>
             </div>
 
             <div class="card borde">
                 <h3>Cover Test</h3>
-                <p>El profesional tapa y destapa un ojo para ver si se desvía. Sirve para detectar estrabismo (tropías) o esfuerzo muscular para mantener los ojos alineados (forias).</p>
+                <p>El profesional tapa y destapa un ojo para ver si se desvía. Sirve para detectar estrabismo (tropías) o esfuerzo muscular para mantener los ojos alineados (forias)[cite: 4].</p>
             </div>
         </div>
     </div>
