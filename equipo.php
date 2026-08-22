@@ -79,7 +79,13 @@
                         <td>6</td>
                         <td>Lamas Andres Juan</td>
                         <td><span class="badge opt">Óptica e Instrumental</span></td>
-                        <td>Explicación del test de Amsler.</td>
+                        <td>Elabración de la presentación de Canva y explicación del test de Amsler.</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>Leonel Manrupe</td>
+                        <td><span class="badge opt">Óptica e Instrumental</span></td>
+                        <td>Coexplicación del test de Amsler.</td>
                     </tr>
                 </tbody>
             </table>

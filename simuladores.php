@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['letras_ingresadas']))
 $snellenActual = ($posSnellen < count($lineasSnellen)) ? $lineasSnellen[$posSnellen] : null;
 
 // -------------------------------------------------------------
-// 2. LÓGICA ISHIHARA (Orden mezclado sin descripciones)
+// 2. LÓGICA ISHIHARA
 // -------------------------------------------------------------
 $placasIshihara = [
     ['file' => '8.jpg',       'correct' => ['8']],
@@ -168,9 +168,9 @@ $opcionAmsler = isset($_GET['amsler']) ? $_GET['amsler'] : '';
         .card-test { background: white; padding: 30px; border-radius: 16px; box-shadow: 0 6px 18px rgba(0,0,0,0.08); text-align: center; }
         
         .caja-visual { 
-            background: #ffffff; border: 2px solid #e0e0e0; height: 220px; 
+            background: #ffffff; border: 2px solid #e0e0e0; min-height: 250px; 
             display: flex; justify-content: center; align-items: center; 
-            margin: 20px 0; border-radius: 12px; position: relative; overflow: hidden;
+            margin: 20px 0; border-radius: 12px; position: relative; overflow: hidden; padding: 15px;
         }
         .letras { font-weight: 700; letter-spacing: 8px; font-family: monospace; }
 
@@ -184,12 +184,8 @@ $opcionAmsler = isset($_GET['amsler']) ? $_GET['amsler'] : '';
         .btn-accion { background: var(--azul); color: white; border: none; padding: 10px 22px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 0.95rem; text-decoration: none; display: inline-block; }
         .btn-accion:hover { background: #004085; }
 
-        .reloj { width: 160px; height: 160px; border: 4px solid #333; border-radius: 50%; position: relative; margin: 0 auto; }
-        .num { position: absolute; font-weight: 700; font-size: 0.9rem; }
-        .n12 { top: 5px; left: 45%; } .n6 { bottom: 5px; left: 47%; } .n3 { right: 8px; top: 43%; } .n9 { left: 8px; top: 43%; }
-        .linea { position: absolute; background: #333; }
-        .linea-v { width: 2px; height: 100%; left: 50%; top: 0; }
-        .linea-h { width: 100%; height: 2px; left: 0; top: 50%; }
+        /* RELOJ SVG */
+        .svg-reloj { width: 320px; height: 320px; max-width: 100%; display: block; margin: 0 auto; }
 
         /* AMSLER STYLES */
         .rejilla-amsler {
@@ -253,10 +249,10 @@ $opcionAmsler = isset($_GET['amsler']) ? $_GET['amsler'] : '';
 
         <!-- BOTONES DE SELECCIÓN -->
         <div class="selector-tests">
-            <a href="simuladores.php?test=snellen" class="tab-btn <?php echo ($testActivo == 'snellen') ? 'activo' : ''; ?>">👓 Miopía (Snellen)</a>
+            <a href="simuladores.php?test=snellen" class="tab-btn <?php echo ($testActivo == 'snellen') ? 'activo' : ''; ?>">👓 Ametropías (Snellen)</a>
             <a href="simuladores.php?test=reloj" class="tab-btn <?php echo ($testActivo == 'reloj') ? 'activo' : ''; ?>">🎯 Astigmatismo (Reloj)</a>
             <a href="simuladores.php?test=ishihara" class="tab-btn <?php echo ($testActivo == 'ishihara') ? 'activo' : ''; ?>">🎨 Daltonismo (Ishihara)</a>
-            <a href="simuladores.php?test=amsler" class="tab-btn <?php echo ($testActivo == 'amsler') ? 'activo' : ''; ?>">👁️ Mácula (Amsler)</a>
+            <a href="simuladores.php?test=amsler" class="tab-btn <?php echo ($testActivo == 'amsler') ? 'activo' : ''; ?>">👁️ Visión central (Amsler)</a>
         </div>
 
         <!-- TEST 1: SNELLEN -->
@@ -266,7 +262,7 @@ $opcionAmsler = isset($_GET['amsler']) ? $_GET['amsler'] : '';
             </div>
 
             <div class="card-test">
-                <h3>Test de Agudeza Visual (Miopía)</h3>
+                <h3>Test de Agudeza Visual (Ametropías)</h3>
                 <p>Ingresa las letras que distingues en la pantalla de arriba hacia abajo (con o sin espacios).</p>
 
                 <?php if ($snellenActual !== null): ?>
@@ -313,39 +309,80 @@ $opcionAmsler = isset($_GET['amsler']) ? $_GET['amsler'] : '';
                 <?php endif; ?>
             </div>
 
-        <!-- TEST 2: CÍRCULO HORARIO -->
+        <!-- TEST 2: CÍRCULO HORARIO DE ASTIGMATISMO -->
         <?php elseif ($testActivo == 'reloj'): ?>
             <div class="cartel-distancia">
-                <span>📏</span> <span>Distancia sugerida: Ubícate a 1 metro de la pantalla.</span>
+                <span>📏</span> <span>Distancia sugerida: Ubícate a 1 metro de la pantalla y evalúa cada ojo por separado.</span>
             </div>
 
             <div class="card-test">
                 <h3>Test de Círculo Horario (Astigmatismo)</h3>
-                <p>Evalúa si la córnea enfoca la luz con distorsión en distintos ejes.</p>
+                <p>Observa el abanico radial. Si tienes astigmatismo, notarás que algunas líneas se ven más oscuras, nítidas o gruesas que otras.</p>
 
                 <div class="caja-visual">
-                    <div class="reloj">
-                        <div class="linea linea-v"></div>
-                        <div class="linea linea-h"></div>
-                        <div class="num n12">12</div><div class="num n3">3</div>
-                        <div class="num n6">6</div><div class="num n9">9</div>
-                    </div>
+                    <svg class="svg-reloj" viewBox="0 0 300 300">
+                        <!-- Círculo del borde exterior únicamente -->
+                        <circle cx="150" cy="150" r="140" fill="none" stroke="#222" stroke-width="3"/>
+
+                        <?php
+                        // Dibujar 3 líneas perfectamente paralelas y rectas por cada posición horaria (1 a 12)
+                        for ($h = 1; $h <= 12; $h++) {
+                            // Ángulo principal de la hora (en radianes)
+                            $anguloRad = deg2rad(($h * 30) - 90);
+
+                            // Vector unitario en la dirección radial
+                            $dx = cos($anguloRad);
+                            $dy = sin($anguloRad);
+
+                            // Vector unitario perpendicular para desplazar las líneas paralelas
+                            $px = -$dy;
+                            $py = $dx;
+
+                            // Separación entre líneas paralelas
+                            $distanciaEntreLineas = 4;
+                            $offsets = [-1, 0, 1];
+
+                            foreach ($offsets as $off) {
+                                // Desplazamiento perpendicular
+                                $shiftX = $px * ($off * $distanciaEntreLineas);
+                                $shiftY = $py * ($off * $distanciaEntreLineas);
+
+                                // Puntos iniciales y finales a lo largo del radio
+                                $rInicio = 15;
+                                $rFin = 108;
+
+                                $x1 = 150 + ($dx * $rInicio) + $shiftX;
+                                $y1 = 150 + ($dy * $rInicio) + $shiftY;
+                                $x2 = 150 + ($dx * $rFin) + $shiftX;
+                                $y2 = 150 + ($dy * $rFin) + $shiftY;
+
+                                echo "<line x1='{$x1}' y1='{$y1}' x2='{$x2}' y2='{$y2}' stroke='#111' stroke-width='2'/>";
+                            }
+
+                            // Posicionar los números del 1 al 12
+                            $nx = 150 + (125 * $dx);
+                            $ny = 150 + (125 * $dy) + 5;
+
+                            echo "<text x='{$nx}' y='{$ny}' font-family='Poppins, sans-serif' font-weight='700' font-size='15' text-anchor='middle' fill='#0056b3'>{$h}</text>";
+                        }
+                        ?>
+                    </svg>
                 </div>
 
-                <p><strong>¿Observas alguna línea más enfocada o definida?</strong></p>
+                <p><strong>¿Cómo percibes las líneas del abanico horario?</strong></p>
                 <div class="btn-items">
-                    <a href="simuladores.php?test=reloj&reloj=v" class="btn-sub">Línea Vertical (12 - 6)</a>
-                    <a href="simuladores.php?test=reloj&reloj=h" class="btn-sub">Línea Horizontal (3 - 9)</a>
-                    <a href="simuladores.php?test=reloj&reloj=i" class="btn-sub">Todas Iguales</a>
+                    <a href="simuladores.php?test=reloj&reloj=desgual" class="btn-sub">Veo unas líneas más oscuras/definidas que otras</a>
+                    <a href="simuladores.php?test=reloj&reloj=igual" class="btn-sub">Veo TODAS las líneas con la misma intensidad</a>
                 </div>
 
-                <div class="info" style="border-left-color: <?php echo ($opcionReloj == 'i' || $opcionReloj == '') ? '#2ecc71' : '#d9534f'; ?>;">
+                <div class="info" style="border-left-color: <?php echo ($opcionReloj == 'igual') ? '#2ecc71' : (($opcionReloj == 'desgual') ? '#d9534f' : 'var(--azul-claro)'); ?>;">
                     <h4 style="margin-bottom: 8px;">📋 Sugerencia de Orientación (Sin Diagnóstico Médico):</h4>
-                    <?php if ($opcionReloj == 'v' || $opcionReloj == 'h'): ?>
-                        <p style="color: #c0392b; font-weight: 600;">Percibiste asimetría en la nitidez de las líneas (eje <?php echo ($opcionReloj == 'v') ? 'vertical' : 'horizontal'; ?>).</p>
-                        <p><strong>Recomendación:</strong> Esta diferencia suele relacionarse con la presencia de <strong>astigmatismo</strong>. Te aconsejamos programar un examen con un optómetra u oftalmólogo para una refracción completa.</p>
-                    <?php elseif ($opcionReloj == 'i'): ?>
-                        <p>Visualizas los radios de la figura con una intensidad y definición uniforme. Esto sugiere una curvatura corneal equilibrada en esta prueba preliminar.</p>
+                    <?php if ($opcionReloj == 'desgual'): ?>
+                        <p style="color: #c0392b; font-weight: 600;">Percibiste asimetría en el contraste o grosor de los radios.</p>
+                        <p><strong>Recomendación:</strong> La visión desigual de los ejes suele indicar la presencia de <strong>astigmatismo</strong>, provocado por una curvatura no esférica en la córnea o el cristalino. Es aconsejable consultar con un óptico u oftalmólogo para una refracción completa.</p>
+                    <?php elseif ($opcionReloj == 'igual'): ?>
+                        <p style="color: #27ae60; font-weight: 600;">Líneas percibidas de forma homogénea.</p>
+                        <p>Visualizas todos los radios de la figura con igual nitidez e intensidad. Esto es característico de un ojo sin astigmatismo significativo en esta evaluación preliminar.</p>
                     <?php else: ?>
                         <p>Selecciona una opción arriba para desplegar la sugerencia del simulador.</p>
                     <?php endif; ?>
@@ -401,7 +438,6 @@ $opcionAmsler = isset($_GET['amsler']) ? $_GET['amsler'] : '';
                     </script>
 
                 <?php else: ?>
-                    <!-- EVALUACIÓN Y PUNTAJE FINAL DE ISHIHARA -->
                     <?php
                         $aciertosIshihara = 0;
                         $totalIshihara = count($placasIshihara);
@@ -483,7 +519,7 @@ $opcionAmsler = isset($_GET['amsler']) ? $_GET['amsler'] : '';
             </div>
 
             <div class="card-test">
-                <h3>Test de Amsler (Evaluación de la Mácula)</h3>
+                <h3>Test de Amsler (Evaluación de visión central)</h3>
                 <p>Mira fijamente el punto rojo central de la cuadrícula sin desviar la mirada.</p>
 
                 <div class="caja-visual" style="height: 280px;">

@@ -10,7 +10,7 @@
             --azul-principal: #0056b3;
             --azul-claro: #00a8cc;
             --fondo-oscuro: #181b24;
-            --fondo-cuerpo: #f4f7f6;
+            --fondo-cuerpo: #9da1a0;
             --texto-principal: #222222;
             --amarillo-alerta: #fff3cd;
             --texto-alerta: #856404;
@@ -94,7 +94,7 @@
 <body>
 
     <header>
-        <h1>VisioTech <span>| Hackathon Sabattini</span></h1>
+        <h1>OptiTest <span>| Hackathon Sabattini</span></h1>
     </header>
 
     <section class="hero">
@@ -117,7 +117,7 @@
 
             <a href="teoria.php" class="btn-seccion">
                 <h3>📚 Teoría de Óptica</h3>
-                <p>Aprender sobre Miopía, Hipermetropía, Astigmatismo y tests clínicos.</p>
+                <p>Aprender sobre Ametropías, Hipermetropía, Astigmatismo y tests clínicos.</p>
             </a>
 
             <a href="equipo.php" class="btn-seccion">
